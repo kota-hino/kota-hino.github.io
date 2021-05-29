@@ -27,16 +27,16 @@
         var scene = new THREE.Scene();
 
         // カメラ作成
-        var camera = new THREE.PerspectiveCamera(100, width / height, 1, 1000);
+        var camera = new THREE.PerspectiveCamera( 80, width / height, 1, 1000);
         // カメラ座標
-        camera.position.set( 3, -5, 9);
-        camera.lookAt(new THREE.Vector3(2, 1, 0));
+        camera.position.set( 1, 1, -30);
+        camera.lookAt(new THREE.Vector3(0, 1, 0));
 
         //平面
         var planeGeometry = new THREE.PlaneGeometry(1,1,1,1);
         var planeMaterial = new THREE.MeshBasicMaterial({color: 0xffffff});
         var plane = new THREE.Mesh(planeGeometry,planeMaterial);
-        //plane.rotation.set( -Math.PI/2, 0, 0 );
+        plane.rotation.set( -Math.PI/2, 0, 0 );
         plane.position.set(0,0,0);
         
         //XYZ軸表示
@@ -48,17 +48,17 @@
         var geometry = new THREE.BoxGeometry( 3, 3, 3);
         var material = new THREE.MeshPhongMaterial({ color: 0x0000ff });
         var box1 = new THREE.Mesh(geometry, material);
-        box1.position.set(0,0,-2);
+        box1.position.set( 0, 1, 0);
         scene.add(box1);
 
         // 平行光源1
         var directionalLight1 = new THREE.DirectionalLight(0xffffff);
-        directionalLight1.position.set(1, 1, 1);
+        directionalLight1.position.set( -3, 1, 1);
         // シーンに追加
         scene.add(directionalLight1);
         // 平行光源2
         var directionalLight2 = new THREE.DirectionalLight(0xffffff);
-        directionalLight2.position.set(-1, 1, 1);
+        directionalLight2.position.set( 0, 1, 1);
         // シーンに追加
         scene.add(directionalLight2);
 
@@ -67,7 +67,7 @@
             requestAnimationFrame(update);
 
             box1.rotation.x += 0.05;
-            plane.rotation.y +=0.01
+            plane.rotation.y += 0.01;
             
             renderer.render(scene, camera);
         };
