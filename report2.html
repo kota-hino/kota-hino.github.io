@@ -11,69 +11,120 @@
 
 </head>
 <body>
-　<script>
+    <script>
     var init = function() {
-        
+    
         var width = 800,
             height = 600;
-
-        //レンダラー
+    
+       // レンダラーを作成
         var renderer = new THREE.WebGLRenderer();
         renderer.setSize(width, height);
         document.body.appendChild(renderer.domElement);
-        //シャドウ
-        //renderer.shadowMap.enabled = true;
-        // シーン
+        //シャドウを有効に
+        renderer.shadowMap.enabled = true;
+    
+       // シーンを作成
         var scene = new THREE.Scene();
-
-        // カメラ作成
-        var camera = new THREE.PerspectiveCamera( 80, width / height, 1, 1000);
-        // カメラ座標
-        camera.position.set( 1, 1, -30);
+    
+       // カメラを作成
+        var camera = new THREE.PerspectiveCamera( 90, width / height, 1, 1000);
+   　  // カメラの座標
+        camera.position.set( 0, 4, 10);
         camera.lookAt(new THREE.Vector3(0, 1, 0));
-
-        //平面
-        var planeGeometry = new THREE.PlaneGeometry(1,1,1,1);
+    
+       // 平面を作成
+        var planeGeometry = new THREE.PlaneGeometry(10,10,10,10);
         var planeMaterial = new THREE.MeshBasicMaterial({color: 0xffffff});
         var plane = new THREE.Mesh(planeGeometry,planeMaterial);
+        plane.receiveShadow = true;
         plane.rotation.set( -Math.PI/2, 0, 0 );
         plane.position.set(0,0,0);
-        
-        //XYZ軸表示
-        var axis = new THREE.AxisHelper(5);
-        axis.position.set(0,-1,0);   
+    
+       //XYZ軸の表示（長さ）
+        var axis = new THREE.AxisHelper(10);
+        axis.position.set(0, 0, 0);             
+    
+       // 車
+        var material = new THREE.MeshPhongMaterial({ color: 0x22aa22});
+        var head_g = new THREE.BoxGeometry( 3, 2, 3 );
+        var head = new THREE.Mesh(head_g, material);
+        head.position.set( 3, 3, 2);
+    
+        var body_g = new THREE.BoxGeometry( 7, 2, 4);
+        var body = new THREE.Mesh( body_g, material);
+        body.position.set( 3, 1.2, 2);
 
-        //臨時
-        // 箱を作成
-        var geometry = new THREE.BoxGeometry( 3, 3, 3);
-        var material = new THREE.MeshPhongMaterial({ color: 0x0000ff });
-        var box1 = new THREE.Mesh(geometry, material);
-        box1.position.set( 0, 1, 0);
-        scene.add(box1);
 
-        // 平行光源1
-        var directionalLight1 = new THREE.DirectionalLight(0xffffff);
-        directionalLight1.position.set( -3, 1, 1);
-        // シーンに追加
+        var material2 = new THREE.MeshPhongMaterial({ color: 0xff0000,wireframe: true});
+        var wheel_g = new THREE.SphereGeometry( 0.8, 32, 32 );
+        var wheelLF = new THREE.Mesh( wheel_g, material2);
+        wheelLF.position.set( 5.5, 0.3, 4);
+        scene.add(wheelLF);
+
+        var wheelRF = new THREE.Mesh( wheel_g, material2);
+        wheelRF.position.set( 5.5, 0.3, 0);
+        scene.add(wheelRF);
+
+        var wheelLB = new THREE.Mesh( wheel_g, material2);
+        wheelLB.position.set( 1, 0.3, 4);
+        scene.add(wheelLB);
+
+        var wheelRB = new THREE.Mesh( wheel_g, material2);
+        wheelRB.position.set( 1, 0.3, 0);
+        scene.add(wheelRB);
+    
+        const car = new THREE.Group();
+        car.add(head); 
+        car.add(body);
+        car.add(wheelLF);
+        car.add(wheelRF);
+        car.add(wheelLB);
+        car.add(wheelRB);
+        car.castShadow = true;
+        car.position.set(0,1,0);
+        scene.add(car);
+    
+    
+        //全体のオブジェクト
+    
+        const all = new THREE.Group();
+        all.add(axis);
+        all.add(plane);
+        //all.add(car);
+        all.position.set(0,0,-5);
+        scene.add(all); 
+    
+       // 平行光源1
+        var directionalLight1 = new THREE.DirectionalLight(0xffffff, 0.5);
+        directionalLight1.position.set(1, 1, 1);
         scene.add(directionalLight1);
-        // 平行光源2
-        var directionalLight2 = new THREE.DirectionalLight(0xffffff);
-        directionalLight2.position.set( 0, 1, 1);
-        // シーンに追加
-        scene.add(directionalLight2);
 
-        // 初回実行
+        // 照明を作成SpotLight(色, 光の強さ, 距離, 照射角, ボケ具合, 減衰率)
+        var light = new THREE.SpotLight(0xffffff, 1, 100, Math.PI / 6, 0.1);
+        light.position.set(0,20, -20);
+        //light.target.position.set( 0, 5, -100 );
+        // ライトに影を有効にする
+        light.castShadow = true;
+        //light.shadow.mapSize.width = 2048;
+        //light.shadow.mapSize.height = 2048;
+        scene.add(light);
+
+    
+       // 初回実行
         var update = function() {
             requestAnimationFrame(update);
-
-            box1.rotation.x += 0.05;
-            plane.rotation.y += 0.01;
-            
+    
+            all.rotation.y += 0.005;
+            car.rotation.y += 0.05;
+            wheelLF.rotation.x += 0.5;
+            wheelRF.rotation.x += 0.5;
+            wheelLB.rotation.x += 0.5;
+            wheelRB.rotation.x += 0.5;
+    
             renderer.render(scene, camera);
         };
         update();
-
-
     }
     window.addEventListener('DOMContentLoaded', init);
 </script>
