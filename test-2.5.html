@@ -48,7 +48,7 @@
          // テクスチャー読み込み
         var textureLoader = new THREE.TextureLoader();  
         var texture = textureLoader.load("DSCF2496.jpg");
-        var mat = new THREE.MeshPhongMaterial();
+        var mat = new THREE.MeshStandardMaterial();
         mat.map = texture;
 
         // バンプマップ読み込み
