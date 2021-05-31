@@ -43,7 +43,8 @@
     
        //XYZ軸の表示
         var axis = new THREE.AxisHelper(10);
-        axis.position.set(0, 0, 0);             
+        axis.position.set(0, 0, 0);     
+        
     
        //車体上部
         var material = new THREE.MeshStandardMaterial({ color: 0x22aa22, roughness:0.5});
@@ -87,7 +88,7 @@
         car.add(wheelLB);
         car.add(wheelRB);
         car.position.set(0,1,0);
-        car.castShadow =
+        car.castShadow = true;
         scene.add(car);
     
     
