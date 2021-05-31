@@ -30,14 +30,14 @@
 
    // テクスチャー読み込み
    var textureLoader = new THREE.TextureLoader();  
-  var texture = textureLoader.load("stone.jpg");
+  var texture = textureLoader.load("DSCF2496.jpg");
   var mat = new THREE.MeshPhongMaterial();
   mat.map = texture;
   
   // バンプマップ読み込み
-  var bump = textureLoader.load("stone-bump.jpg");
+  var bump = textureLoader.load("DSCF2496_bump.jpg");
   mat.bumpMap = bump;
-  mat.bumpscale = 0.2;
+  mat.bumpscale = 3;
 
   // 箱を作成
   var geometry = new THREE.BoxGeometry(1, 1, 1);
