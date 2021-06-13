@@ -22,6 +22,7 @@
        // レンダラーを作成
         var renderer = new THREE.WebGLRenderer();
         renderer.setSize(width, height);
+        renderer.setClearColor(0x6666ff);
         document.body.appendChild(renderer.domElement);
         //シャドウを有効に
         renderer.shadowMap.enabled = true;
@@ -136,6 +137,7 @@
     
             all.rotation.y += 0.005;
             car.rotation.y += 0.05;
+            car.rotation.y +=0.03;
             wheelLF.rotation.x += 0.5;
             wheelRF.rotation.x += 0.5;
             wheelLB.rotation.x += 0.5;
