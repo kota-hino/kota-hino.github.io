@@ -1,0 +1,175 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/110/three.min.js"></script>
+    <script src="OrbitControls.js"></script>
+    <script>
+      // ページの読み込みを待つ
+    window.addEventListener('load', init);
+
+    function init() {
+        // サイズを指定
+        const width = 960;
+        const height = 540;
+
+        // レンダラーを作成
+        const renderer = new THREE.WebGLRenderer({
+            canvas: document.querySelector('#myCanvas')
+        });
+        renderer.setSize(width, height);
+        // 背景の色を設定
+        renderer.setClearColor(0xeeeeff);
+
+        // シーンを作成
+        const scene = new THREE.Scene();
+
+        // カメラを作成
+        const camera = new THREE.PerspectiveCamera(45, width / height);
+        // カメラの初期座標を設定
+        camera.position.set(0, 50, 1000);
+
+        // カメラコントローラーを作成
+        const controls = new THREE.OrbitControls(camera,document.body);
+
+        // 平行光源1
+        var directionalLight1 = new THREE.DirectionalLight(0xffffff);
+        directionalLight1.position.set(100, 100, 100);
+        // シーンに追加
+        scene.add(directionalLight1);
+        // 平行光源2
+        var directionalLight2 = new THREE.DirectionalLight(0xffffff);
+        directionalLight2.position.set(-100, 100, 100);
+        // シーンに追加
+        scene.add(directionalLight2);
+
+        // helper
+        const gridHelper = new THREE.GridHelper(1000,20); // size, step
+        scene.add(gridHelper);
+        const axisHelper = new THREE.AxisHelper(1000,500);
+        scene.add(axisHelper);
+
+         // 地面
+        var textureLoader = new THREE.TextureLoader();  
+        var texture1 = textureLoader.load("kusa.jpg");
+        var mat1 = new THREE.MeshPhongMaterial();
+        mat1.map = texture1;
+
+        var bump1 = textureLoader.load("kusa_b.jpg");
+        mat1.bumpMap = bump1;
+        mat1.bumpscale = 100;
+
+        var planeGeometry = new THREE.PlaneGeometry(2000,750,750,2000);
+        var plane = new THREE.Mesh(planeGeometry,mat1);
+        plane.rotation.set( -Math.PI/2, 0, 0 );
+        plane.position.set(0,0,0);
+        scene.add(plane);
+
+        //わらの家
+        var textureLoader = new THREE.TextureLoader();  
+        var texture2 = textureLoader.load("wara.jpg");
+        var mat2 = new THREE.MeshPhongMaterial();
+        mat2.map = texture2;
+
+        var bump2 = textureLoader.load("wara_b.jpg");
+        mat2.bumpMap = bump2;
+        mat2.bumpscale = 10;
+
+        var core_g = new THREE.BoxGeometry( 120, 100, 120);
+        var material = new THREE.MeshPhongMaterial({ color: 0x000000 });
+        var core1 = new THREE.Mesh(core_g, material);
+        core1.position.set( -350, 50, 0);
+        scene.add(core1);
+
+        var tower = new THREE.CylinderGeometry(20,20,100,128);
+        var tower1 = new THREE.Mesh(tower, mat2);
+        tower1.position.set(-390,50,80);
+        scene.add(tower1);
+        var tower2 = new THREE.Mesh(tower, mat2);
+        tower2.position.set(-410,50,60);
+        scene.add(tower2);
+        var tower3 = new THREE.Mesh(tower, mat2);
+        tower3.position.set(-420,50,20);
+        scene.add(tower3);
+        var tower3 = new THREE.Mesh(tower, mat2);
+        tower3.position.set(-420,50,-20);
+        scene.add(tower3);
+        var tower4 = new THREE.Mesh(tower, mat2);
+        tower4.position.set(-410,50,-60);
+        scene.add(tower4);
+        var tower5 = new THREE.Mesh(tower, mat2);
+        tower5.position.set(-320,50,80);
+        scene.add(tower5);
+        var tower6 = new THREE.Mesh(tower, mat2);
+        tower6.position.set(-300,50,60);
+        scene.add(tower6);
+        var tower7 = new THREE.Mesh(tower, mat2);
+        tower7.position.set(-290,50,20);
+        scene.add(tower7);
+        var tower8 = new THREE.Mesh(tower, mat2);
+        tower8.position.set(-290,50,-20);
+        scene.add(tower8);
+        var tower9 = new THREE.Mesh(tower, mat2);
+        tower9.position.set(-300,50,-60);
+        scene.add(tower9);
+        var tower10 = new THREE.Mesh(tower, mat2);
+        tower10.position.set(-390,50,-70);
+        scene.add(tower10);
+        var tower11 = new THREE.Mesh(tower, mat2);
+        tower11.position.set(-355,50,-70);
+        scene.add(tower11);
+        var tower12 = new THREE.Mesh(tower, mat2);
+        tower12.position.set(-320,50,-70);
+        scene.add(tower12);
+
+        var roofwg = new THREE.ConeGeometry(100,80,64);
+        var roof1 = new THREE.Mesh(roofwg, mat2);
+        roof1.position.set(-355,140,5);
+        scene.add(roof1);
+
+        //木の家
+        var textureLoader = new THREE.TextureLoader();  
+        var texture3 = textureLoader.load("maruta.jpg");
+        var mat3 = new THREE.MeshPhongMaterial();
+        mat3.map = texture3;
+
+        var bump3 = textureLoader.load("maruta_b.jpg");
+        mat3.bumpMap = bump3;
+        mat3.bumpscale = 10;
+
+        var core2 = new THREE.Mesh(core_g, material);
+        core2.position.set( 0, 50, 0);
+        scene.add(core2);
+
+
+        //レンガの家
+        var textureLoader = new THREE.TextureLoader();  
+        var texture4 = textureLoader.load("renga.jpg");
+        var mat4 = new THREE.MeshPhongMaterial();
+        mat4.map = texture4;
+
+        var bump4 = textureLoader.load("renga_b.jpg");
+        mat4.bumpMap = bump4;
+        mat4.bumpscale = 10;
+
+        var core3 = new THREE.Mesh(core_g, material);
+        core3.position.set( 350, 50, 0);
+        scene.add(core3);
+
+        
+
+
+        tick();
+        // 毎フレーム時に実行されるループイベントです
+        function tick() {
+          // レンダリング
+        renderer.render(scene, camera);
+        requestAnimationFrame(tick);
+        }
+    }
+    </script>
+</head>
+
+<body>
+    <canvas id="myCanvas"></canvas>
+</body>
+</html>
