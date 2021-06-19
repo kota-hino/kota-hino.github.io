@@ -18,7 +18,7 @@
         });
         renderer.setSize(width, height);
         // 背景の色を設定
-        renderer.setClearColor(0xeeeeff);
+        renderer.setClearColor(0x4499ff);
 
         // シーンを作成
         const scene = new THREE.Scene();
@@ -26,27 +26,29 @@
         // カメラを作成
         const camera = new THREE.PerspectiveCamera(45, width / height);
         // カメラの初期座標を設定
-        camera.position.set(0, 50, 1000);
+        camera.position.set(0, 200, 750);
 
         // カメラコントローラーを作成
         const controls = new THREE.OrbitControls(camera,document.body);
 
         // 平行光源1
         var directionalLight1 = new THREE.DirectionalLight(0xffffff);
-        directionalLight1.position.set(100, 100, 100);
-        // シーンに追加
+        directionalLight1.position.set(1000, 500, 1000);
         scene.add(directionalLight1);
         // 平行光源2
         var directionalLight2 = new THREE.DirectionalLight(0xffffff);
-        directionalLight2.position.set(-100, 100, 100);
-        // シーンに追加
+        directionalLight2.position.set(-1000, 500, 1000);
         scene.add(directionalLight2);
+        // 平行光源3
+        var directionalLight3 = new THREE.DirectionalLight(0xffffff);
+        directionalLight3.position.set(0, 500, -1000);
+        scene.add(directionalLight3);
 
         // helper
-        const gridHelper = new THREE.GridHelper(1000,20); // size, step
-        scene.add(gridHelper);
-        const axisHelper = new THREE.AxisHelper(1000,500);
-        scene.add(axisHelper);
+        //const gridHelper = new THREE.GridHelper(1000,20); // size, step
+        //scene.add(gridHelper);
+        //const axisHelper = new THREE.AxisHelper(1000,500);
+        //scene.add(axisHelper);
 
          // 地面
         var textureLoader = new THREE.TextureLoader();  
@@ -72,7 +74,7 @@
 
         var bump2 = textureLoader.load("wara_b.jpg");
         mat2.bumpMap = bump2;
-        mat2.bumpscale = 10;
+        mat2.bumpscale = 100;
 
         var core_g = new THREE.BoxGeometry( 120, 100, 120);
         var material = new THREE.MeshPhongMaterial({ color: 0x000000 });
@@ -126,6 +128,17 @@
         roof1.position.set(-355,140,5);
         scene.add(roof1);
 
+        var textureLoader = new THREE.TextureLoader();  
+        var texture0 = textureLoader.load("batu.png");
+        const material0 = new THREE.SpriteMaterial({ map: texture0,});
+
+        const spritew = new THREE.Sprite(material0);
+        spritew.position.x = -350;
+        spritew.position.y = 250;
+        spritew.position.z = 0;
+        spritew.scale.set(100,100,100);
+        scene.add(spritew);
+
         //木の家
         var textureLoader = new THREE.TextureLoader();  
         var texture3 = textureLoader.load("maruta.jpg");
@@ -134,11 +147,47 @@
 
         var bump3 = textureLoader.load("maruta_b.jpg");
         mat3.bumpMap = bump3;
-        mat3.bumpscale = 10;
+        mat3.bumpscale = 100;
 
         var core2 = new THREE.Mesh(core_g, material);
         core2.position.set( 0, 50, 0);
         scene.add(core2);
+
+        var wollmg1 = new THREE.BoxGeometry(20,100,120);
+        var wollm1 = new THREE.Mesh(wollmg1, mat3);
+        wollm1.position.set(-65,50,0);
+        scene.add(wollm1);
+        var wollm2 = new THREE.Mesh(wollmg1, mat3);
+        wollm2.position.set( 65,50,0);
+        scene.add(wollm2);
+        var wollmg2 = new THREE.BoxGeometry(60,100,20);
+        var wollm3 = new THREE.Mesh(wollmg2, mat3);
+        wollm3.position.set( 45,50,60);
+        scene.add(wollm3);
+        var wollm4 = new THREE.Mesh(wollmg2, mat3);
+        wollm4.position.set(-45,50,60);
+        scene.add(wollm4);
+        var wollmg3 = new THREE.BoxGeometry(150,100,20);
+        var wollm5 = new THREE.Mesh(wollmg3, mat3);
+        wollm5.position.set( 0,50,-60);
+        scene.add(wollm5);
+        var wollmg4 = new THREE.BoxGeometry(150,10,145);
+        var wollm6 = new THREE.Mesh(wollmg4, mat3);
+        wollm6.position.set( 0,100,0);
+        scene.add(wollm6);
+
+        var roofmg = new THREE.ConeGeometry(110,60,4);
+        var roof2 = new THREE.Mesh(roofmg, mat3);
+        roof2.rotation.y += 0.75;
+        roof2.position.set( 0,135,0);
+        scene.add(roof2);
+
+        const spritem = new THREE.Sprite(material0);
+        spritem.position.x = 0;
+        spritem.position.y = 250;
+        spritem.position.z = 0;
+        spritem.scale.set(100,100,100);
+        scene.add(spritem);
 
 
         //レンガの家
@@ -149,13 +198,51 @@
 
         var bump4 = textureLoader.load("renga_b.jpg");
         mat4.bumpMap = bump4;
-        mat4.bumpscale = 10;
+        mat4.bumpscale = 100;
 
         var core3 = new THREE.Mesh(core_g, material);
         core3.position.set( 350, 50, 0);
         scene.add(core3);
 
-        
+        var wollrg1 = new THREE.BoxGeometry(20,100,120);
+        var wollr1 = new THREE.Mesh(wollrg1, mat4);
+        wollr1.position.set(285,50,0);
+        scene.add(wollr1);
+        var wollr2 = new THREE.Mesh(wollrg1, mat4);
+        wollr2.position.set( 415,50,0);
+        scene.add(wollr2);
+        var wollrg2 = new THREE.BoxGeometry(60,100,20);
+        var wollr3 = new THREE.Mesh(wollrg2, mat4);
+        wollr3.position.set(395,50,60);
+        scene.add(wollr3);
+        var wollr4 = new THREE.Mesh(wollrg2, mat4);
+        wollr4.position.set(315,50,60);
+        scene.add(wollr4);
+        var wollrg3 = new THREE.BoxGeometry(150,100,20);
+        var wollr5 = new THREE.Mesh(wollrg3, mat4);
+        wollr5.position.set( 350,50,-60);
+        scene.add(wollr5);
+        var wollrg4 = new THREE.BoxGeometry(150,10,145);
+        var wollr6 = new THREE.Mesh(wollrg4, mat4);
+        wollr6.position.set( 350,100,0);
+        scene.add(wollr6);
+
+        var roofrg = new THREE.ConeGeometry(110,60,4);
+        var roof3 = new THREE.Mesh(roofrg, mat4);
+        roof3.rotation.y += 0.75;
+        roof3.position.set( 350,135,0);
+        scene.add(roof3);
+
+        var textureLoader = new THREE.TextureLoader();  
+        var texture1 = textureLoader.load("maru.png");
+        const material1 = new THREE.SpriteMaterial({ map: texture1,});
+
+        const spriter = new THREE.Sprite(material1);
+        spriter.position.x = 350;
+        spriter.position.y = 250;
+        spriter.position.z = 0;
+        spriter.scale.set(100,100,100);
+        scene.add(spriter);
 
 
         tick();
