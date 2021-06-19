@@ -1,4 +1,5 @@
 <html>
+<h1>３匹の子豚の家</h1>
 <head>
     <meta charset="utf-8" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/110/three.min.js"></script>
@@ -32,15 +33,15 @@
         const controls = new THREE.OrbitControls(camera,document.body);
 
         // 平行光源1
-        var directionalLight1 = new THREE.DirectionalLight(0xffffff);
+        var directionalLight1 = new THREE.DirectionalLight(0xffffff,0.9);
         directionalLight1.position.set(1000, 500, 1000);
         scene.add(directionalLight1);
         // 平行光源2
-        var directionalLight2 = new THREE.DirectionalLight(0xffffff);
+        var directionalLight2 = new THREE.DirectionalLight(0xffffff,0.9);
         directionalLight2.position.set(-1000, 500, 1000);
         scene.add(directionalLight2);
         // 平行光源3
-        var directionalLight3 = new THREE.DirectionalLight(0xffffff);
+        var directionalLight3 = new THREE.DirectionalLight(0xffffff,0.7);
         directionalLight3.position.set(0, 500, -1000);
         scene.add(directionalLight3);
 
@@ -53,7 +54,7 @@
          // 地面
         var textureLoader = new THREE.TextureLoader();  
         var texture1 = textureLoader.load("kusa.jpg");
-        var mat1 = new THREE.MeshPhongMaterial();
+        var mat1 = new THREE.MeshStandardMaterial();
         mat1.map = texture1;
 
         var bump1 = textureLoader.load("kusa_b.jpg");
@@ -69,7 +70,7 @@
         //わらの家
         var textureLoader = new THREE.TextureLoader();  
         var texture2 = textureLoader.load("wara.jpg");
-        var mat2 = new THREE.MeshPhongMaterial();
+        var mat2 = new THREE.MeshStandardMaterial();
         mat2.map = texture2;
 
         var bump2 = textureLoader.load("wara_b.jpg");
@@ -142,7 +143,7 @@
         //木の家
         var textureLoader = new THREE.TextureLoader();  
         var texture3 = textureLoader.load("maruta.jpg");
-        var mat3 = new THREE.MeshPhongMaterial();
+        var mat3 = new THREE.MeshStandardMaterial();
         mat3.map = texture3;
 
         var bump3 = textureLoader.load("maruta_b.jpg");
@@ -193,7 +194,7 @@
         //レンガの家
         var textureLoader = new THREE.TextureLoader();  
         var texture4 = textureLoader.load("renga.jpg");
-        var mat4 = new THREE.MeshPhongMaterial();
+        var mat4 = new THREE.MeshStandardMaterial();
         mat4.map = texture4;
 
         var bump4 = textureLoader.load("renga_b.jpg");
